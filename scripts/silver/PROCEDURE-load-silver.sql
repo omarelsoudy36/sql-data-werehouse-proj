@@ -112,8 +112,8 @@ BEGIN
 		)
 select
 prd_id,
-REPLACE(SUBSTRING(prd_key, 1,5 ), '-', '—')as cat_key ,
-REPLACE(SUBSTRING(prd_key, 7,len(prd_key)), '-', '—') as prd_key ,
+REPLACE(SUBSTRING(prd_key, 1,5 ), '-', '_')as cat_key ,
+REPLACE(SUBSTRING(prd_key, 7,len(prd_key)), '-', '_') as prd_key ,
 prd_nm,
 isnull(prd_cost,0) as prd_cost,
   CASE  UPPER(TRIM(prd_line))
@@ -149,7 +149,7 @@ FROM bronze.crm_prd_info;
 		)
 		SELECT 
 			sls_ord_num,
-			sls_prd_key,
+			REPLACE (sls_prd_key, '-' ,'_') AS sls_prd_key,
 			sls_cust_id,
 			CASE 
 				WHEN sls_order_dt = 0 OR LEN(sls_order_dt) != 8 THEN NULL
